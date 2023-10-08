@@ -1,0 +1,78 @@
+{
+    "NAVBAR": {
+        "CODE_NUMBER": "Número del código",
+        "GO": "JUGAR"
+    },
+    "HOME": {
+        "SINGLE": "JUGAR",
+        "CREATE": "CREAR",
+        "SETTINGS": "AJUSTES"
+    },
+    "NEW_GAME": {
+        "SELECT_DIFFICULTY": "Selecciona una dificultad",
+        "CUSTOM": "Personalizada",
+        "EASY": "Fácil",
+        "NORMAL": "Normal",
+        "DIFFICULT": "difícil",
+        "EASY_HELP": "¡En modo fácil tendrás algunas letras ya completas que harán el juego muy fácil!",
+        "NORMAL_HELP": "¡En modo normal tendrás letras de tres que te ayudarán a completar el juego un poco más rápido!",
+        "DIFFICULT_HELP": "¡En el modo difícil tendrás sólo la ayuda básica y deducirás el mensaje por ti mismo!",
+        "CUSTOMIZE_DIFFICULTY": "PERSONALIZAR DIFICULTAD",
+        "PLAY": "JUGAR",
+        "CREATE": "CREAR",
+        "FREQUENT_LETTERS": "Número de las letras más frecuentes a completar",
+        "RANDOM_LETTERS": "Número de las letras aleatorias a completar",
+        "SHOW_HINT": "Mostrar pista",
+        "AUTOCOMPLETE_HINT": "Autocompletar pista",
+        "AUTOCOMPLETE_HINT_HELP": "Se completarán automáticamente las letras presentes en la pista",
+        "LETTERS_HINT": "Número de letras de la pista",
+        "LETTERS_HINT_HELP": "Si ninguna pista con este número de letras se encuentra no verás ninguna pista",
+        "SHOW_FREQUENCY_CHARACTERS": "Mostrar frecuencia de los carácteres",
+        "SHOW_FREQUENCY_LETTERS": "Mostrar frecuencia de letras",
+        "SHOW_FREQUENCY_TWO_LETTERS": "Mostrar frecuencia de pares",
+        "SHOW_FREQUENCY_THREE_LETTERS": "Mostrar frecuencia de trios"
+    },
+    "PLAY":{
+        "HINT": "Pista",
+        "LETTERS": "Letras",
+        "TWO_LETTERS": "Pares",
+        "THREE_LETTERS": "Trios",
+        "RESET": "Reiniciar",
+        "SKIP": "Saltar"
+    },
+    "CREATE":{
+        "MESSAGE_LABEL": "Introduce tú mensaje secreto",
+        "MESSAGE_PLACEHOLDER": "Este es el mensaje secreto..."
+    },
+    "SETTINGS":{
+        "SETTINGS": "Ajustes",
+        "SHOW_CONFETTI": "Mostrar confetti al completar",
+        "SAVE_CHANGES": "GUARDAR CAMBIOS",
+        "SUCCESS_MESSAGE": "¡Ajustes guardados con éxito!",
+        "LANGUAGE": "Selecciona un idioma",
+        "ES": "Español",
+        "EN": "Inglés"
+    },
+    "CONFIRM_MODAL":{
+        "OK": "Ok",
+        "CANCEL": "Cancelar",
+        "RESET_LETTERS": "Reiniciar letras",
+        "RESET_LETTERS_DESCRIPTION": "Las letras se reiniciarán al estado inicial. ¿Está seguro de proceder?"
+    },
+    "CREATE_MODAL":{
+        "SECRET_MESSAGE_CREATED": "¡Mensaje secreto creado!",
+        "LINK": "Enlace",
+        "MENU": "Inicio",
+        "GO_CHALLENGE": "Ir al reto"
+    },
+    "COMPLETE_MODAL":{
+        "CONGRATS": "¡Felicitaciones lograste descifrar el mensaje!",
+        "LINK": "Enlace",
+        "TIME": "Tiempo",
+        "HOURS": "horas",
+        "MINUTES": "minutos",
+        "SECONDS": "segundos",
+        "MENU": "Inicio",
+        "NEXT_CHALLENGE": "Siguiente reto"
+    }
+}

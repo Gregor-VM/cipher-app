@@ -1,0 +1,72 @@
+<div class="container mt-2">
+    
+    <div class="row mb-xl-0 mb-4">
+        <div class="col-12 col-xl-11">
+            <div *ngIf="settings?.showHint" class="alert alert-primary text-center">
+                <strong>{{ 'PLAY.HINT' | translate }}: </strong> {{hint}}
+            </div>
+        </div>
+        <div class="col-12 col-xl-1 mb-3">
+            <div class="d-flex justify-content-center align-items-center mt-2">
+                <button (click)="resetLetters()" [openDelay]="500" [ngbTooltip]="'PLAY.RESET' | translate" type="button" class="btn btn-outline-warning btn-lg"><fa-icon [icon]="faRefresh"></fa-icon></button>
+                <button (click)="skipGame()" [openDelay]="500" [ngbTooltip]="'PLAY.SKIP' | translate" type="button" class="btn btn-outline-primary btn-lg ms-1"><fa-icon [icon]="faForward"></fa-icon></button>
+            </div>
+        </div>
+    </div>
+
+    <ng-container class="d-flex" *ngFor="let char of code">
+        <button (click)="select(char)" *ngIf="char.char !== ' ';else empty" type="button" [ngClass]="{'btn-success': char.selected, 'btn-light': !char.selected}" class="code-button btn mb-2 mx-1">{{char.res || char.char}}</button>
+        <ng-template #empty>
+            <span class="mx-4"></span>
+        </ng-template>
+    </ng-container>
+
+    <div *ngIf="settings?.showFrequencyOfCharacters" class="mt-3">
+
+        <ul *ngFor="let chars of uniqueCharsSplitted" class="d-flex justify-content-center list-group list-group-horizontal my-2">
+            <li *ngFor="let char of chars" class="list-group-item d-flex justify-content-between align-items-center">
+                <strong>{{char}}</strong> <span class="badge bg-primary rounded-pill ms-2">{{charCount[char]}}</span>
+            </li>
+        </ul>
+
+    </div>
+
+
+
+        
+    <div class="d-flex flex-column align-items-center mt-3">
+        <div ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-pills">
+            <ng-container *ngIf="settings?.showFrecuencyOfLetters" [ngbNavItem]="1">
+                <button ngbNavLink>{{ 'PLAY.LETTERS' | translate }}</button>
+                <ng-template ngbNavContent>
+                    <div class="my-4">
+                        <span *ngFor="let letter of frequentLetters" class="badge bg-primary rounded-pill ms-2">{{letter}}</span>
+                    </div>
+                </ng-template>
+            </ng-container>
+            <ng-container *ngIf="settings?.showFrecuencyOfTwoLetters" [ngbNavItem]="2">
+                <button ngbNavLink>{{ 'PLAY.TWO_LETTERS' | translate }}</button>
+                <ng-template ngbNavContent>
+                    <div class="my-4">
+                        <span *ngFor="let word of frequentTwo" class="badge bg-primary rounded-pill ms-2">{{word}}</span>
+                    </div>
+                </ng-template>
+            </ng-container>
+            <ng-container *ngIf="settings?.showFrecuencyOfThreeLetters" [ngbNavItem]="3">
+                <button ngbNavLink>{{ 'PLAY.THREE_LETTERS' | translate }}</button>
+                <ng-template ngbNavContent>
+                    <div class="my-4">
+                        <span *ngFor="let word of frequentThree" class="badge bg-primary rounded-pill ms-2">{{word}}</span>
+                    </div>
+                </ng-template>
+            </ng-container>
+        </div>
+    
+        <div [ngbNavOutlet]="nav" class="ms-4"></div>
+    </div>        
+    
+</div>
+
+<canvas id="confetti">
+
+</canvas>

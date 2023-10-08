@@ -1,0 +1,15 @@
+<nav class="navbar navbar-expand-lg bg-primary" data-bs-theme="dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" [routerLink]="['/']">CipherGame</a>
+      <div class="collapse navbar-collapse" id="navbarColor01">
+        <ul class="navbar-nav me-auto">
+          
+          
+        </ul>
+        <form [formGroup]="formGroup" (submit)="searchCode()" class="d-flex">
+          <input formControlName="codeNumber" class="form-control me-sm-2" type="search" [placeholder]="'NAVBAR.CODE_NUMBER' | translate">
+          <button class="btn btn-secondary my-2 my-sm-0" type="submit">{{ 'NAVBAR.GO' | translate }}</button>
+        </form>
+      </div>
+    </div>
+  </nav>

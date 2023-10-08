@@ -1,0 +1,29 @@
+<div class="context p-3">
+    <h1>CIPHER GAME</h1>
+
+        <div class="row">
+                <div class="col-6 col-md-3 mx-auto">
+                        <div class="d-grid gap-4 mx-auto mt-5">
+                                <button [routerLink]="['new-game']" class="btn btn-lg btn-light p-3 mt-5" type="button">{{ 'HOME.SINGLE' | translate }}<fa-icon class="ms-2" [icon]="faGamepad"></fa-icon></button>
+                                <button [routerLink]="['create']" class="btn btn-lg btn-success p-3" type="button">{{ 'HOME.CREATE' | translate }} <fa-icon class="ms-2" [icon]="faAdd"></fa-icon></button>
+                                <button [routerLink]="['settings']" class="btn btn-lg btn-warning p-3" type="button">{{ 'HOME.SETTINGS' | translate }} <fa-icon class="ms-2" [icon]="faGear"></fa-icon> </button>
+                        </div>
+                </div>
+        </div>
+</div>
+
+
+<div class="area" >
+            <ul class="circles">
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+            </ul>
+    </div >

@@ -1,0 +1,10 @@
+<div class="container">
+    <div>
+        <div class="form-group">
+            <label for="exampleTextarea" class="form-label mt-4">{{ 'CREATE.MESSAGE_LABEL' | translate }}</label>
+            <textarea [(ngModel)]="msg" id="textarea" [placeholder]="'CREATE.MESSAGE_PLACEHOLDER' | translate" class="form-control" rows="3" (keyup)="autogrow()"></textarea>
+        </div>
+    </div>
+
+    <app-new-game [create]="true" (onCreate)="onCreate($event)" ></app-new-game>
+</div>

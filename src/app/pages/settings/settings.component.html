@@ -1,0 +1,36 @@
+<div class="container">
+
+    <div class="card mb-5 mt-5">
+        <div class="card-header">{{ "SETTINGS.SETTINGS" | translate }}</div>
+        <form class="m-3 mt-0 app-settings-form" [formGroup]="appSettings">
+            
+            <div class="row">
+                <div class="col-12 mt-3">
+                    <div class="form-check form-switch">
+                        <input id="showConfetti" class="form-check-input" formControlName="showConfetti" type="checkbox" role="switch">
+                        <label for="showConfetti" class="form-check-label">{{ "SETTINGS.SHOW_CONFETTI" | translate }}</label>
+                    </div>
+                </div>
+                <div class="col-12 mt-3">
+                    <label for="lang" class="form-check-label mb-2">{{ "SETTINGS.LANGUAGE" | translate }}</label>
+                    <select id="lang" formControlName="language" class="form-select" aria-label="Select language">
+                        <!--<option selected>Open this select menu</option>-->
+                        <option value="es">{{ "SETTINGS.ES" | translate }}</option>
+                        <option value="en">{{ "SETTINGS.EN" | translate }}</option>
+                    </select>
+                </div>
+            </div>
+
+            <button
+                type="button"
+                class="btn btn-lg btn-outline-success mt-3"
+                (click)="saveChanges()"
+                aria-controls="collapseExample"
+            >
+            {{ "SETTINGS.SAVE_CHANGES" | translate }} <fa-icon class="ms-2" [icon]="faSave"></fa-icon>
+            </button>
+
+        </form>
+    </div>
+    
+</div>
