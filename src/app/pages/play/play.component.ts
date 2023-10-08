@@ -305,9 +305,9 @@ export class PlayComponent {
     const input = e.target as HTMLInputElement;
 
     if(input){
-      const key = input?.value;
+      const key = input?.value.toLowerCase();
       if(allowedKeys.includes(key)){
-        this.replaceLetter(key.toLowerCase());
+        this.replaceLetter(key);
         input?.blur();
         this.unSelectAll();
       }
