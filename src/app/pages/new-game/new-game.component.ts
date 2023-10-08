@@ -3,59 +3,11 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { faGear, faGamepad, faQuestionCircle, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { reset, setSettings } from 'src/app/store/actions/settings.actions';
+import { setSettings } from 'src/app/store/actions/settings.actions';
 import { SettingState } from 'src/app/store/reducers/settings.reducer';
 import { Router } from '@angular/router';
 import { getRandomTextIndex } from 'src/app/utils/utils';
-
-const difficultyHelpMessages = {
-  easy: 'NEW_GAME.EASY_HELP',
-  normal: 'NEW_GAME.NORMAL_HELP',
-  difficult: 'NEW_GAME.DIFFICULT_HELP'
-}
-
-const difficulties = {
-  easy: {
-    autoFillFrequent: 0,
-    autoFillRandom: 8,
-    showHint: true,
-    autocompleteHint: true,
-    hintAmount: 6,
-    showFrequencyOfCharacters: true,
-    showFrecuencyOfLetters: true,
-    showFrecuencyOfTwoLetters: true,
-    showFrecuencyOfThreeLetters: true,
-  },
-  normal: {
-    autoFillFrequent: 0,
-    autoFillRandom: 0,
-    showHint: true,
-    autocompleteHint: true,
-    hintAmount: 3,
-    showFrequencyOfCharacters: true,
-    showFrecuencyOfLetters: true,
-    showFrecuencyOfTwoLetters: true,
-    showFrecuencyOfThreeLetters: true,
-  },
-  difficult: {
-    autoFillFrequent: 0,
-    autoFillRandom: 0,
-    showHint: false,
-    autocompleteHint: false,
-    hintAmount: 3,
-    showFrequencyOfCharacters: true,
-    showFrecuencyOfLetters: true,
-    showFrecuencyOfTwoLetters: true,
-    showFrecuencyOfThreeLetters: true,
-  }
-}
-
-enum DIFFICULTIES {
-  'easy' = 'easy',
-  'normal' = 'normal',
-  'difficult' = 'difficult',
-  'custom' = 'custom'
-}
+import { difficulties, DIFFICULTIES, difficultyHelpMessages } from 'src/app/utils/difficulty';
 
 @Component({
   selector: 'app-new-game',
@@ -66,6 +18,8 @@ export class NewGameComponent {
 
   @Input() create: boolean = false;
   @Output() onCreate: EventEmitter<any> = new EventEmitter();
+
+  private redirectTo?: string;
 
   public isCollapsed = true;
   defaultDifficulty: DIFFICULTIES.normal = DIFFICULTIES.normal;
@@ -84,7 +38,7 @@ export class NewGameComponent {
 
   get helpText () {
     if(this.formGroup?.value?.difficulty){
-      return (difficultyHelpMessages as any)[this.formGroup?.value?.difficulty]
+      return (difficultyHelpMessages)[this.formGroup?.value?.difficulty as keyof typeof difficultyHelpMessages]
     } else {
       return 'Select a difficulty to play a game!'
     }
@@ -96,6 +50,14 @@ export class NewGameComponent {
     private store: Store<{ settings: SettingState }>,
     private router: Router
   ){
+
+
+    const data = this.router.getCurrentNavigation()?.extras.state;
+    if(data && data['url']){
+      this.redirectTo = data['url'].replace(window.document.baseURI, '');
+    }
+
+
     this.formGroup = this._fb.group({
       difficulty: ['normal', Validators.required]
     });
@@ -144,13 +106,13 @@ export class NewGameComponent {
 
   }
 
-  ngOnInit(){
-    //this.store.dispatch(reset());
-  }
-
   start(){
     this.store.dispatch(setSettings(this.settings.value));
-    this.router.navigate(['play', getRandomTextIndex(this.settings.value?.hintAmount)]);
+    if(this.redirectTo){
+      this.router.navigateByUrl(this.redirectTo);
+    } else {
+      this.router.navigate(['play', getRandomTextIndex(this.settings.value?.hintAmount)]);
+    }
   }
 
   emitCreate(){

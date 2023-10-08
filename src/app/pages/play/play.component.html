@@ -1,4 +1,8 @@
 <div class="container mt-2">
+
+    <div>
+        <input id="keyboard" type="text" class="keyboard" />
+    </div>
     
     <div class="row mb-xl-0 mb-4">
         <div class="col-12 col-xl-11">
@@ -14,12 +18,14 @@
         </div>
     </div>
 
-    <ng-container class="d-flex" *ngFor="let char of code">
-        <button (click)="select(char)" *ngIf="char.char !== ' ';else empty" type="button" [ngClass]="{'btn-success': char.selected, 'btn-light': !char.selected}" class="code-button btn mb-2 mx-1">{{char.res || char.char}}</button>
-        <ng-template #empty>
-            <span class="mx-4"></span>
-        </ng-template>
-    </ng-container>
+    <div class="overflow-hidden">
+        <ng-container class="d-flex" *ngFor="let char of code">
+            <button (click)="select(char)" *ngIf="char.char !== ' ';else empty" type="button" [ngClass]="{'btn-success': char.selected, 'btn-light': !char.selected}" class="code-button btn mb-2 mx-1">{{char.res || char.char}}</button>
+            <ng-template #empty>
+                <span class="mx-4"></span>
+            </ng-template>
+        </ng-container>
+    </div>
 
     <div *ngIf="settings?.showFrequencyOfCharacters" class="mt-3">
 

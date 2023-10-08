@@ -35,6 +35,9 @@ export class PlayComponent {
   private endTime?: number;
   public hint?: string | null;
 
+  private mouseX = 0;
+  private mouseY = 0;
+
   code: Char[] = [];
 
   keySelected: Char | null = null;
@@ -86,6 +89,10 @@ export class PlayComponent {
     this.settings$.subscribe(value => {
       this.settings = value;
 
+      if(!this.settings.initialized) {
+        this.router.navigate(['new-game'], { state: {url: window.location.href} });
+      }
+
       if(this.settings?.showFrecuencyOfThreeLetters) this.active = 3;
       if(this.settings?.showFrecuencyOfTwoLetters) this.active = 2;
       if(this.settings?.showFrecuencyOfLetters) this.active = 1;
@@ -101,6 +108,15 @@ export class PlayComponent {
   }
 
   ngOnInit(){
+
+    const input = window.document.getElementById('keyboard');
+
+    if(input){
+      document.addEventListener("mousemove", function(event) {
+        const mouseY = event.pageY;
+        input.style.top = mouseY + "px";
+      });
+    }
     
   }
 
@@ -165,9 +181,12 @@ export class PlayComponent {
 
   select(selectedChar: Char){
 
-    if ("virtualKeyboard" in navigator) {
+    /*if ("virtualKeyboard" in navigator) {
       (navigator as any)?.virtualKeyboard?.show();
-    }    
+    }*/
+
+    const input = window.document.getElementById('keyboard');
+    input?.focus();
 
     for (const char of this.code) {
       if(char.char === selectedChar.char){
@@ -277,6 +296,9 @@ export class PlayComponent {
       if(this.isComplete){
         this.onComplete();
       }
+
+      const input = window.document.getElementById('keyboard');
+      input?.blur();
     })
   }
 
