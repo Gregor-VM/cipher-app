@@ -1,7 +1,7 @@
 <div class="container mt-2">
 
     <div>
-        <input id="keyboard" type="text" class="keyboard" />
+        <input id="keyboard" type="text" class="keyboard d-md-none" (keyup)="handleMobileTyping($event)" />
     </div>
     
     <div class="row mb-xl-0 mb-4">

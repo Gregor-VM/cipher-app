@@ -297,9 +297,23 @@ export class PlayComponent {
         this.onComplete();
       }
 
-      const input = window.document.getElementById('keyboard');
-      input?.blur();
     })
+  }
+
+  handleMobileTyping(e: Event){
+
+    const input = e.target as HTMLInputElement;
+
+    if(input){
+      const key = input?.value;
+      if(allowedKeys.includes(key)){
+        this.replaceLetter(key);
+        input?.blur();
+        this.unSelectAll();
+      }
+      input.value = '';
+    }
+
   }
 
   skipGame(){
