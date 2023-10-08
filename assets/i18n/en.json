@@ -1,0 +1,78 @@
+{
+    "NAVBAR": {
+        "CODE_NUMBER": "Code number",
+        "GO": "GO"
+    },
+    "HOME": {
+        "SINGLE": "SINGLE",
+        "CREATE": "CREATE",
+        "SETTINGS": "SETTINGS"
+    },
+    "NEW_GAME": {
+        "SELECT_DIFFICULTY": "Select a difficulty",
+        "CUSTOM": "Custom",
+        "EASY": "Easy",
+        "NORMAL": "Normal",
+        "DIFFICULT": "Difficult",
+        "EASY_HELP": "In easy mode you will have some already completed letters that make the game very easy to complete!",
+        "NORMAL_HELP": "In normal mode you will have some three letters hints that will help you only a little bit to complete the game!",
+        "DIFFICULT_HELP": "In difficult mode you only will have the basics help, but you will figure out the message all by yourself",
+        "CUSTOMIZE_DIFFICULTY": "CUSTOMIZE DIFFICULTY",
+        "PLAY": "PLAY",
+        "CREATE": "CREATE",
+        "FREQUENT_LETTERS": "Number of the most frequent letters to be autocompleted",
+        "RANDOM_LETTERS": "Number of random words letter to be autocompleted",
+        "SHOW_HINT": "Show hint",
+        "AUTOCOMPLETE_HINT": "Autocomplete Hint",
+        "AUTOCOMPLETE_HINT_HELP": "Automatically fill the letters in the code that are present in the hint",
+        "LETTERS_HINT": "Number of letters of the word for the hint",
+        "LETTERS_HINT_HELP": "If none words with the number of letter it is found you will not see any hints",
+        "SHOW_FREQUENCY_CHARACTERS": "Show frequency of characters",
+        "SHOW_FREQUENCY_LETTERS": "Show frequency of letters",
+        "SHOW_FREQUENCY_TWO_LETTERS": "Show frecuency two letters words",
+        "SHOW_FREQUENCY_THREE_LETTERS": "Show frecuency three letters words"
+    },
+    "PLAY":{
+        "HINT": "Hint",
+        "LETTERS": "Letters",
+        "TWO_LETTERS": "Two letters",
+        "THREE_LETTERS": "Three letters",
+        "RESET": "Reset",
+        "SKIP": "Skip"
+    },
+    "CREATE":{
+        "MESSAGE_LABEL": "Introduce your secret message",
+        "MESSAGE_PLACEHOLDER": "This is the secret message..."
+    },
+    "SETTINGS":{
+        "SETTINGS": "Settings",
+        "SHOW_CONFETTI": "Show confetti on complete",
+        "SAVE_CHANGES": "SAVE CHANGES",
+        "SUCCESS_MESSAGE": "Settings successfully saved!",
+        "LANGUAGE": "Select a language",
+        "ES": "Spanish",
+        "EN": "English"
+    },
+    "CONFIRM_MODAL":{
+        "OK": "Ok",
+        "CANCEL": "Cancel",
+        "RESET_LETTERS": "Reset Letters",
+        "RESET_LETTERS_DESCRIPTION": "Letter will be reset to the inital state. Are you sure to proceed?"
+    },
+    "CREATE_MODAL":{
+        "SECRET_MESSAGE_CREATED": "Secret Message Created!",
+        "LINK": "Link",
+        "MENU": "Menu",
+        "GO_CHALLENGE": "Go to the Challenge"
+    },
+    "COMPLETE_MODAL":{
+        "CONGRATS": "Congratulations you descipher the message!",
+        "LINK": "Link",
+        "TIME": "Time",
+        "HOURS": "hours",
+        "MINUTES": "minutes",
+        "SECONDS": "seconds",
+        "MENU": "Menu",
+        "NEXT_CHALLENGE": "Next Challenge"
+    }
+}
