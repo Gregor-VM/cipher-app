@@ -31,7 +31,7 @@ export function localStorageSyncReducer(reducer: ActionReducer<any>): ActionRedu
 const metaReducers: Array<MetaReducer<any, any>> = [localStorageSyncReducer];
 
 export function HttpLoaderFactory(http: HttpClient) {
-  return new TranslateHttpLoader(http);
+  return new TranslateHttpLoader(http, './assets/i18n/');
 }
 
 @NgModule({
