@@ -57,7 +57,6 @@ export class CreateComponent {
       hint: this.hint || null,
       originalCode: this.originalCode,
       uniqueChars: this.uniqueChars,
-      //uniqueCharsSplitted: this.uniqueCharsSplitted,
       charCount: this.charCount
     }
 
@@ -66,7 +65,7 @@ export class CreateComponent {
 
     const modalRef = this.modalService.open(CreateModalComponent, { backdropClass: 'light-backdrop', centered: true });
     modalRef.componentInstance.message = this.msg;
-    modalRef.componentInstance.url = window.location.origin + '/join/' + id;
+    modalRef.componentInstance.url = window.document.body.baseURI + 'join/' + id;
     modalRef.componentInstance.path = '/join/' + id;
 
     return null;
@@ -94,26 +93,6 @@ export class CreateComponent {
 
     this.charCount = charCount;
     this.uniqueChars = Array.from(uniqueChars).sort((a, b) => charCount[b] - charCount[a]);
-
-    /*let uniqueCharsSplittedTemp = [];
-    let index = 0;
-
-    let symbolsPerRow = 14;
-
-    if(window.innerWidth > 475 && window.innerWidth <= 1200) symbolsPerRow = 6;
-    if(window.innerWidth <= 475) symbolsPerRow = 4;
-
-    for (const char of this.uniqueChars) {
-      if(index === symbolsPerRow){
-        this.uniqueCharsSplitted.push(uniqueCharsSplittedTemp);
-        uniqueCharsSplittedTemp = [];
-        index = 0;
-      }
-      uniqueCharsSplittedTemp.push(char);
-      index++;
-    }
-
-    if(index > 0) this.uniqueCharsSplitted.push(uniqueCharsSplittedTemp);*/
 
   }
 
