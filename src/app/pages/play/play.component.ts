@@ -289,8 +289,8 @@ export class PlayComponent {
         this.replaceLetter('');
       }
 
-      if(this.keySelected && allowedKeys.includes(e.key)){
-        this.replaceLetter(e.key);
+      if(this.keySelected && allowedKeys.includes(e.key.toLowerCase())){
+        this.replaceLetter(e.key.toLowerCase());
       }
 
       if(this.isComplete){
@@ -307,7 +307,6 @@ export class PlayComponent {
     if(input){
       const key = input?.value.toLowerCase();
       if(allowedKeys.includes(key)){
-        this.replaceLetter(key);
         input?.blur();
         this.unSelectAll();
       }
