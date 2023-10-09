@@ -307,8 +307,12 @@ export class PlayComponent {
     if(input){
       const key = input?.value.toLowerCase();
       if(allowedKeys.includes(key)){
+        this.replaceLetter(key);
         input?.blur();
         this.unSelectAll();
+        if(this.isComplete){
+          this.onComplete();
+        }
       }
       input.value = '';
     }
