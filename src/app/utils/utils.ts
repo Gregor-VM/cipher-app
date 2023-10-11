@@ -59,7 +59,7 @@ const getRandomTextIndex = (hintAmount: number | undefined = undefined): number 
     const random = Math.floor(Math.random() * array.length);
 
     if(hintAmount && hintAmount > 0){
-        if(getRandomWord(array[random], hintAmount)){
+        if(getRandomWord(array[random].quote, hintAmount)){
             return random;
         } else {
             return getRandomTextIndex(hintAmount);
@@ -75,9 +75,9 @@ const getText = (index: number | null = null) => {
 
     if(index === null) index = getRandomTextIndex();
   
-    const rawText = array[index];
-  
-    return normalizeText(rawText);
+    const quote = array[index];
+
+    return ({...quote, normalizedText: normalizeText(quote.quote)});
   
 };
 
@@ -108,6 +108,10 @@ export const normalizeText = (text: string) => {
         .replaceAll(')', '')
         .replaceAll("'", '')
         .replaceAll('"', '')
+        .replaceAll('?', '')
+        .replaceAll('¿', '')
+        .replaceAll('!', '')
+        .replaceAll('¡', '')
 }
 
 export {getRandomEncrypt, getText, getRandomWord, getRandomTextIndex, getPhrasesSize};

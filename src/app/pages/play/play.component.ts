@@ -14,6 +14,7 @@ import { CompleteModalComponent } from 'src/app/components/complete-modal/comple
 import { ShareCodeService } from 'src/app/services/share-code-service.service';
 import { SharedCode } from 'src/app/interfaces/sharedCode.model';
 import { TranslateService } from '@ngx-translate/core';
+import Quote from 'src/app/interfaces/quote.model';
 
 @Component({
   selector: 'app-play',
@@ -30,6 +31,7 @@ export class PlayComponent {
   created?: boolean;
 
   private message?: string;
+  private quote?: Quote;
   private originalCode?: string;
   private startTime?: number;
   private endTime?: number;
@@ -139,7 +141,8 @@ export class PlayComponent {
   }
 
   loadCode(id: string | number){
-    this.message = getText(Number(id));
+    this.quote = getText(Number(id));
+    this.message = this.quote.normalizedText;
     this.originalCode = getRandomEncrypt( this.message );
     this.hint = getRandomWord( this.message, this.settings?.hintAmount )?.toUpperCase();
     this.code = this.originalCode.split('').map((char) => ({char, res: '', selected: false}));
@@ -291,10 +294,10 @@ export class PlayComponent {
 
       if(this.keySelected && allowedKeys.includes(e.key.toLowerCase())){
         this.replaceLetter(e.key.toLowerCase());
-      }
 
-      if(this.isComplete){
-        this.onComplete();
+        if(this.isComplete){
+          this.onComplete();
+        }
       }
 
     })
@@ -371,7 +374,9 @@ export class PlayComponent {
     const hours = difference / (1000 * 60 * 60);
 
 		const modalRef = this.modalService.open(CompleteModalComponent, { backdropClass: 'light-backdrop', centered: true });
-    modalRef.componentInstance.message = this.message;
+    modalRef.componentInstance.message = this.quote?.quote;
+    modalRef.componentInstance.author = this.quote?.author;
+
     modalRef.componentInstance.minutes = Math.floor(minutes);
     modalRef.componentInstance.seconds = Math.floor(seconds);
     modalRef.componentInstance.hours = Math.floor(hours);

@@ -72,7 +72,11 @@
         "HOURS": "hours",
         "MINUTES": "minutes",
         "SECONDS": "seconds",
+        "HOUR": "hour",
+        "MINUTE": "minute",
+        "SECOND": "second",
         "MENU": "Menu",
-        "NEXT_CHALLENGE": "Next Challenge"
+        "NEXT_CHALLENGE": "Next Challenge",
+        "AUTHOR": "Author"
     }
 }

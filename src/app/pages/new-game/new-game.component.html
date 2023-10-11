@@ -58,7 +58,7 @@
         <div #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsed">
             <div class="card mb-5">
                 <form class="row m-3" [formGroup]="settings">
-                    <div class="col-11">
+                    <div class="col-10 col-md-11">
                         <label for="customRange2" class="form-label">{{ 'NEW_GAME.FREQUENT_LETTERS' | translate }}</label>
                         <input formControlName="autoFillFrequent" type="range" class="form-range" min="0" max="10" id="customRange2">
                     </div>
@@ -66,7 +66,7 @@
                         <span class="badge bg-primary rounded-pill mt-3">{{settings.controls['autoFillFrequent'].value}}</span>
                     </div>
 
-                    <div class="col-11">
+                    <div class="col-10 col-md-11">
                         <label for="customRange2" class="form-label">{{ 'NEW_GAME.RANDOM_LETTERS' | translate }}</label>
                         <input formControlName="autoFillRandom" type="range" class="form-range" min="0" max="10" id="customRange2">
                     </div>
@@ -88,7 +88,7 @@
                         </div>
                     </div>
 
-                    <div class="col-11">
+                    <div class="col-10 col-md-11">
                         <label [ngClass]="{'disabled':settings.controls['hintAmount'].disabled}" for="customRange2" class="form-label">{{ 'NEW_GAME.LETTERS_HINT' | translate }}
                             <fa-icon class="ms-2" [openDelay]="500" [ngbTooltip]='"NEW_GAME.LETTERS_HINT_HELP" | translate' [icon]="faQuestionCircle"></fa-icon>
                         </label>
