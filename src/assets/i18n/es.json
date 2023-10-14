@@ -56,7 +56,8 @@
         "SUCCESS_MESSAGE": "¡Ajustes guardados con éxito!",
         "LANGUAGE": "Selecciona un idioma",
         "ES": "Español",
-        "EN": "Inglés"
+        "EN": "Inglés",
+        "SHOW_TUTORIAL": "Mostrar tutorial"
     },
     "CONFIRM_MODAL":{
         "OK": "Ok",

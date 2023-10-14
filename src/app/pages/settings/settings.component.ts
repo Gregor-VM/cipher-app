@@ -34,6 +34,7 @@ export class SettingsComponent {
     this.appSettings = this._fb.group({
       showConfetti: [true, Validators.required],
       language: ['es', Validators.required],
+      showTutorial: [true, Validators.required]
     });
 
     this.appSettings$ = this.store.select((state) => state.appSettings);

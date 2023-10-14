@@ -56,7 +56,8 @@
         "SUCCESS_MESSAGE": "Settings successfully saved!",
         "LANGUAGE": "Select a language",
         "ES": "Spanish",
-        "EN": "English"
+        "EN": "English",
+        "SHOW_TUTORIAL": "Show tutorial"
     },
     "CONFIRM_MODAL":{
         "OK": "Ok",

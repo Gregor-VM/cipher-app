@@ -3,7 +3,8 @@ import { reset, setAppSettings } from '../actions/app-settings.actions';
 
 export const initialState = {
     showConfetti: true,
-    language: 'es'
+    language: 'es',
+    showTutorial: true,
 };
 
 export type AppSettingState = typeof initialState;

@@ -7,6 +7,12 @@
             <div class="row">
                 <div class="col-12 mt-3">
                     <div class="form-check form-switch">
+                        <input id="showTutorial" class="form-check-input" formControlName="showTutorial" type="checkbox" role="switch">
+                        <label for="showTutorial" class="form-check-label">{{ "SETTINGS.SHOW_TUTORIAL" | translate }}</label>
+                    </div>
+                </div>
+                <div class="col-12 mt-3">
+                    <div class="form-check form-switch">
                         <input id="showConfetti" class="form-check-input" formControlName="showConfetti" type="checkbox" role="switch">
                         <label for="showConfetti" class="form-check-label">{{ "SETTINGS.SHOW_CONFETTI" | translate }}</label>
                     </div>

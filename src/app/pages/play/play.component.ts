@@ -15,7 +15,8 @@ import { ShareCodeService } from 'src/app/services/share-code-service.service';
 import { SharedCode } from 'src/app/interfaces/sharedCode.model';
 import { TranslateService } from '@ngx-translate/core';
 import Quote from 'src/app/interfaces/quote.model';
-import { TUTORIAL_STATE } from 'src/app/interfaces/tutorial.model';
+import { AppSettingState } from 'src/app/store/reducers/app-settings.reducer';
+import { setAppSettings } from 'src/app/store/actions/app-settings.actions';
 
 @Component({
   selector: 'app-play',
@@ -26,6 +27,9 @@ export class PlayComponent {
 
   settings$: Observable<SettingState>;
   settings?: SettingState;
+
+  appSettings$: Observable<AppSettingState>;
+  appSettingsState?: AppSettingState;
 
   active = 1;
 
@@ -87,13 +91,18 @@ export class PlayComponent {
     private modalService: NgbModal,
     private activatedRoute: ActivatedRoute,
     private router: Router,
-    private store: Store<{ settings: SettingState }>,
+    private store: Store<{ settings: SettingState, appSettings: AppSettingState }>,
     private _sharedCodeService: ShareCodeService,
     private translateService: TranslateService
     ){
 
     this.unSelectListener();
     this.replaceLetterListener();
+
+    this.appSettings$ = this.store.select((state) => state.appSettings);
+    this.appSettings$.subscribe(value => {
+      this.appSettingsState = value;
+    });
 
     this.settings$ = this.store.select((state) => state.settings)
     this.settings$.subscribe(value => {
@@ -167,7 +176,7 @@ export class PlayComponent {
   loadCode(id: string | number){
     this.quote = getText(Number(id));
 
-    this.showTutorial = window.localStorage.getItem('tutorial') !== TUTORIAL_STATE.COMPLETED;
+    this.showTutorial = this.appSettingsState?.showTutorial || false;
 
     if(this.showTutorial){
       this.quote = {
@@ -384,8 +393,6 @@ export class PlayComponent {
 
         if(this.isComplete){
           this.onComplete();
-          if(this.showTutorial) this.popOver?.get(1)?.close();
-          window.localStorage.setItem('tutorial', TUTORIAL_STATE.COMPLETED);
         }
       }
 
@@ -449,7 +456,13 @@ export class PlayComponent {
   }
 
   onComplete(){
-    this.showConffetti();
+    
+    if(this.showTutorial && this.appSettingsState) {
+      this.popOver?.get(1)?.close();
+      this.store.dispatch(setAppSettings({...this.appSettingsState, showTutorial: false}));
+    }
+
+    if(this.appSettingsState?.showConfetti) this.showConffetti();
     setTimeout(this.openBackDropCustomClass.bind(this), 500);
   }
 
