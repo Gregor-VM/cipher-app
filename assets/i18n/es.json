@@ -38,7 +38,12 @@
         "TWO_LETTERS": "Pares",
         "THREE_LETTERS": "Trios",
         "RESET": "Reiniciar",
-        "SKIP": "Saltar"
+        "SKIP": "Saltar",
+        "FREQUENT_TITLE": "Letras y palabras más frecuentes en el idioma español:",
+        "TUTORIAL_TITLE_FIRST": "Selecciona el simbolo",
+        "TUTORIAL_DESCRIPTION_FIRST": "Debes hacer click en el símbolo que falta por completar para colocar la letra que le corresponde.",
+        "TUTORIAL_TITLE_SECOND": "Remplaza con la letra",
+        "TUTORIAL_DESCRIPTION_SECOND": "Ahora selecciona la letra que completa el mensaje de forma correcta."
     },
     "CREATE":{
         "MESSAGE_LABEL": "Introduce tú mensaje secreto",
