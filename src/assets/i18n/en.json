@@ -38,7 +38,12 @@
         "TWO_LETTERS": "Two letters",
         "THREE_LETTERS": "Three letters",
         "RESET": "Reset",
-        "SKIP": "Skip"
+        "SKIP": "Skip",
+        "FREQUENT_TITLE": "Letter and words more frequent in spanish:",
+        "TUTORIAL_TITLE_FIRST": "Select a symbol",
+        "TUTORIAL_DESCRIPTION_FIRST": "Click the symbol that needs to be replaced by a letter",
+        "TUTORIAL_TITLE_SECOND": "Replace the letter",
+        "TUTORIAL_DESCRIPTION_SECOND": "Now, select the letter that correctly complete the message"
     },
     "CREATE":{
         "MESSAGE_LABEL": "Introduce your secret message",

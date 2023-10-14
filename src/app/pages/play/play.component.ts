@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, ViewChildren, QueryList } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { faRefresh, faForward } from '@fortawesome/free-solid-svg-icons';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbPopover } from '@ng-bootstrap/ng-bootstrap';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { NgbdModalContent } from 'src/app/components/confirm-modal/confirm-modal.component';
@@ -15,6 +15,7 @@ import { ShareCodeService } from 'src/app/services/share-code-service.service';
 import { SharedCode } from 'src/app/interfaces/sharedCode.model';
 import { TranslateService } from '@ngx-translate/core';
 import Quote from 'src/app/interfaces/quote.model';
+import { TUTORIAL_STATE } from 'src/app/interfaces/tutorial.model';
 
 @Component({
   selector: 'app-play',
@@ -55,6 +56,13 @@ export class PlayComponent {
 
   frequentTwo = ['de', 'la', 'el', 'en', 'se', 'un', 'no', 'su', 'es', 'al', 'lo', 'le', 'ha']
   frequentThree = ['que', 'los', 'del', 'las', 'por', 'con', 'una', 'mas', 'sus']
+
+  showingWarning = false;
+  warningTimeout: NodeJS.Timeout | null = null;
+
+  @ViewChildren('pop') popOver?: QueryList<NgbPopover>;
+
+  showTutorial = false;
 
   get frequentLetters() {
 
@@ -119,10 +127,24 @@ export class PlayComponent {
         input.style.top = mouseY + "px";
       });
     }
+
+    if(this.showTutorial){
+      setTimeout(() => {
+
+        if(this.popOver?.get(1)){
+          this.popOver.get(1)?.open({
+            title: this.translateService.instant('PLAY.TUTORIAL_TITLE_FIRST'),
+            description: this.translateService.instant('PLAY.TUTORIAL_DESCRIPTION_FIRST')});
+        }
+        
+      }, 800)
+    }
     
   }
 
   async loadCreatedCode(id: string){
+
+    this.showTutorial = false;
 
     const doc = await this._sharedCodeService.get(id);
     const data = (doc.data() as SharedCode);
@@ -144,17 +166,33 @@ export class PlayComponent {
 
   loadCode(id: string | number){
     this.quote = getText(Number(id));
+
+    this.showTutorial = window.localStorage.getItem('tutorial') !== TUTORIAL_STATE.COMPLETED;
+
+    if(this.showTutorial){
+      this.quote = {
+        author: '',
+        quote: 'Debes completar este mensaje',
+        normalizedText: 'Debes completar este mensaje'
+      }
+    }
+
     this.message = this.quote.normalizedText;
     this.originalCode = getRandomEncrypt( this.message );
     this.hint = getRandomWord( this.message, this.settings?.hintAmount )?.toUpperCase();
-    this.code = this.originalCode.split('').map((char) => ({char, res: '', selected: false}));
+    this.code = this.originalCode.split('').map((char) => ({char, res: '', selected: false, warning: false}));
 
-    this.autoCompleteHints();
+    if(this.showTutorial){
+      this.completeLetters(this.quote.normalizedText.split("").filter(e => e !== 'e'));
+    }
 
     this.getCharCount();
-    
-    if(this.settings?.autoFillFrequent) this.replaceFrequentLetters(this.settings?.autoFillFrequent);
-    if(this.settings?.autoFillRandom) this.replaceRandomLetters(this.settings?.autoFillRandom);
+
+    if(!this.showTutorial){
+      this.autoCompleteHints();    
+      if(this.settings?.autoFillFrequent) this.replaceFrequentLetters(this.settings?.autoFillFrequent);
+      if(this.settings?.autoFillRandom) this.replaceRandomLetters(this.settings?.autoFillRandom);
+    }
 
     this.startTime = (new Date()).getTime();
 
@@ -186,9 +224,15 @@ export class PlayComponent {
 
   select(selectedChar: Char){
 
-    /*if ("virtualKeyboard" in navigator) {
-      (navigator as any)?.virtualKeyboard?.show();
-    }*/
+    if(this.showTutorial){
+      this.popOver?.get(1)?.close();
+      setTimeout(() => {
+        this.popOver?.get(1)?.open({
+          title: this.translateService.instant('PLAY.TUTORIAL_TITLE_SECOND'),
+          description: this.translateService.instant('PLAY.TUTORIAL_DESCRIPTION_SECOND')
+        });
+      }, 500)
+    }
 
     const input = window.document.getElementById('keyboard');
     input?.focus();
@@ -287,11 +331,52 @@ export class PlayComponent {
     })
   }
 
+  markWarning(letter: string){
+
+    if(this.showingWarning){
+
+      if(this.warningTimeout) clearTimeout(this.warningTimeout)
+
+      for (const char of this.code) {
+        char.warning = false;
+        this.showingWarning = false;
+      }
+
+    }
+
+    this.showingWarning = true;
+
+    for (const char of this.code) {
+      if(char.res.toLowerCase() === letter){
+        char.warning = true;
+      } else {
+        char.warning = false;
+      }
+    }
+
+    this.warningTimeout = setTimeout(() => {
+      for (const char of this.code) {
+        char.warning = false;
+        this.showingWarning = false;
+      }
+    }, 1000);
+
+  }
+
   replaceLetterListener(){
     window.addEventListener('keydown', (e) => {
 
+      if(e.key.toLowerCase() === this.keySelected?.res) return;
+
       if(this.keySelected && e.code === 'Backspace'){
         this.replaceLetter('');
+      }
+
+      const usedWords = Array.from(new Set(this.code.map(letter => letter.res.toLowerCase())));
+
+      if(usedWords.includes(e.key.toLowerCase())){
+        this.markWarning(e.key.toLowerCase())
+        return;
       }
 
       if(this.keySelected && allowedKeys.includes(e.key.toLowerCase())){
@@ -299,6 +384,8 @@ export class PlayComponent {
 
         if(this.isComplete){
           this.onComplete();
+          if(this.showTutorial) this.popOver?.get(1)?.close();
+          window.localStorage.setItem('tutorial', TUTORIAL_STATE.COMPLETED);
         }
       }
 
@@ -371,9 +458,9 @@ export class PlayComponent {
     this.endTime = (new Date()).getTime();
 
     const difference = this.endTime - (this.startTime as number);
-    const seconds = difference / (1000);
-    const minutes = difference / (1000 * 60);
-    const hours = difference / (1000 * 60 * 60);
+    const hours = Math.floor(difference / (1000 * 60 * 60));
+    const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((difference % (1000 * 60)) / 1000);
 
 		const modalRef = this.modalService.open(CompleteModalComponent, { backdropClass: 'light-backdrop', centered: true });
     modalRef.componentInstance.message = this.quote?.quote;

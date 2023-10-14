@@ -1,0 +1,3 @@
+export enum TUTORIAL_STATE{
+    COMPLETED = 'COMPLETED'
+}

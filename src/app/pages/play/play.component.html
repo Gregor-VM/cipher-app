@@ -18,11 +18,31 @@
         </div>
     </div>
 
+    <ng-template #popContent let-description="description">
+        {{description}}
+    </ng-template>
+
+    <ng-template #popTitle let-title="title">
+        {{title}}
+    </ng-template>
+
     <div class="overflow-hidden">
-        <ng-container class="d-flex" *ngFor="let char of code">
-            <button (click)="select(char)" *ngIf="char.char !== ' ';else empty" type="button" [ngClass]="{'btn-success': char.selected, 'btn-light': !char.selected}" class="code-button btn mb-2 mx-1">{{char.res || char.char}}</button>
+        <ng-container class="d-flex" *ngFor="let char of code; let i = index">
+            <button (click)="select(char)" 
+                    *ngIf="char.char !== ' ';else empty" 
+                    type="button" 
+                    [ngClass]="{'btn-warning': char.warning, 'btn-success': char.selected && !char.warning, 'btn-light': !char.selected && !char.warning}" 
+                    class="code-button btn mb-2 mx-1"
+                    [ngbPopover]="popContent"
+                    [popoverTitle]="popTitle"
+                    [autoClose]="false"
+                    triggers="manual"
+                    #pop="ngbPopover"
+                    >
+                    {{char.res || char.char}}</button>
             <ng-template #empty>
-                <span class="mx-4"></span>
+                <!--<span class="mx-4"></span>-->
+                <button type="button" class="code-button opacity-25 btn mb-2 mx-1 btn-light"><span class="opacity-0">.</span></button>
             </ng-template>
         </ng-container>
     </div>
@@ -39,6 +59,7 @@
 
 
 
+    <p class="text-muted text-center p-0">{{ 'PLAY.FREQUENT_TITLE' | translate }}</p>
         
     <div class="d-flex flex-column align-items-center mt-3">
         <div ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-pills">

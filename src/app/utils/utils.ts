@@ -99,6 +99,7 @@ const getRandomWord = (text: string, amountOfLetters = 3) => {
 }
 
 export const normalizeText = (text: string) => {
+    text = text.split("").map(l => removeAccents(l)).join("");
     return text.split("\n").join(" ").trim()
         .replaceAll('.', '')
         .replaceAll(',', '')
