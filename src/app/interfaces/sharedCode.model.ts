@@ -1,5 +1,6 @@
+import Quote from './quote.model';
 export interface SharedCode{
-    msg: string;
+    quote: Quote;
     settings: any;
     code: any;
     hint: string | null;

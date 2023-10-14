@@ -127,7 +127,9 @@ export class PlayComponent {
     const doc = await this._sharedCodeService.get(id);
     const data = (doc.data() as SharedCode);
 
-    this.message = data.msg;
+    this.quote = {quote: data.quote.quote, normalizedText: data.quote.normalizedText, author: data.quote.author};
+
+    this.message = data.quote.normalizedText;
     this.originalCode = data.originalCode;
     this.hint = data.hint;
     this.code = data.code;

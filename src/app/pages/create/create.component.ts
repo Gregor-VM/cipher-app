@@ -35,8 +35,6 @@ export class CreateComponent {
 
     if(!this.msg) return null;
 
-    this.msg = normalizeText(this.msg);
-
     this.settings = event;
 
     this.originalCode = getRandomEncrypt( this.msg );
@@ -51,7 +49,7 @@ export class CreateComponent {
     if(this.settings?.autoFillRandom) this.replaceRandomLetters(this.settings?.autoFillRandom);
 
     const data = {
-      msg: this.msg,
+      quote: {normalizedText: normalizeText(this.msg), quote: this.msg, author: ''},
       settings: event,
       code: this.code,
       hint: this.hint || null,
