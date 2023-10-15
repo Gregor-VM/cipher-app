@@ -7,8 +7,7 @@ import { Observable } from 'rxjs';
 import { NgbdModalContent } from 'src/app/components/confirm-modal/confirm-modal.component';
 import Char from 'src/app/interfaces/char.model';
 import { SettingState } from 'src/app/store/reducers/settings.reducer';
-import { getRandomEncrypt, getRandomTextIndex, getRandomWord, getText, randomizeArray, removeAccents } from 'src/app/utils/utils';
-import { allowedKeys, lettersByFrecuency } from 'src/app/utils/variables';
+import { getRandomEncrypt, getRandomWord, randomizeArray, removeAccents } from 'src/app/utils/utils';
 import * as confetti from 'canvas-confetti';
 import { CompleteModalComponent } from 'src/app/components/complete-modal/complete-modal.component';
 import { ShareCodeService } from 'src/app/services/share-code-service.service';
@@ -17,6 +16,7 @@ import { TranslateService } from '@ngx-translate/core';
 import Quote from 'src/app/interfaces/quote.model';
 import { AppSettingState } from 'src/app/store/reducers/app-settings.reducer';
 import { setAppSettings } from 'src/app/store/actions/app-settings.actions';
+import { QuotesService } from 'src/app/services/quotes.service';
 
 @Component({
   selector: 'app-play',
@@ -42,9 +42,6 @@ export class PlayComponent {
   private endTime?: number;
   public hint?: string | null;
 
-  private mouseX = 0;
-  private mouseY = 0;
-
   code: Char[] = [];
 
   keySelected: Char | null = null;
@@ -58,9 +55,6 @@ export class PlayComponent {
   faRefresh = faRefresh;
   faForward = faForward;
 
-  frequentTwo = ['de', 'la', 'el', 'en', 'se', 'un', 'no', 'su', 'es', 'al', 'lo', 'le', 'ha']
-  frequentThree = ['que', 'los', 'del', 'las', 'por', 'con', 'una', 'mas', 'sus']
-
   showingWarning = false;
   warningTimeout: NodeJS.Timeout | null = null;
 
@@ -68,13 +62,21 @@ export class PlayComponent {
 
   showTutorial = false;
 
+  get frequentTwo(){
+    return this.translateService.instant('PLAY.LETTER_TWO_FREQUENCY');
+  }
+
+  get frequentThree(){
+    return this.translateService.instant('PLAY.LETTER_THREE_FREQUENCY');
+  }
+
   get frequentLetters() {
 
     let presentLetters = this.code.filter(char => char.res).map(char => char.res.toLocaleLowerCase());
 
     presentLetters = Array.from(new Set(presentLetters));
 
-    return lettersByFrecuency.filter(letter => !presentLetters.includes(letter.toLowerCase()));
+    return (this.translateService.instant('PLAY.LETTER_FREQUENCY') as string[]).filter(letter => !presentLetters.includes(letter.toLowerCase()));
   }
 
   get isComplete(){
@@ -93,6 +95,7 @@ export class PlayComponent {
     private router: Router,
     private store: Store<{ settings: SettingState, appSettings: AppSettingState }>,
     private _sharedCodeService: ShareCodeService,
+    private _quoteService: QuotesService,
     private translateService: TranslateService
     ){
 
@@ -174,7 +177,7 @@ export class PlayComponent {
   }
 
   loadCode(id: string | number){
-    this.quote = getText(Number(id));
+    this.quote = this._quoteService.getText(Number(id));
 
     this.showTutorial = this.appSettingsState?.showTutorial || false;
 
@@ -401,6 +404,8 @@ export class PlayComponent {
 
   handleTyping(e: KeyboardEvent): boolean{
 
+    const allowedKeys = this.translateService.instant('PLAY.ALLOWED_KEYS');
+
     if(e.key.toLowerCase() === this.keySelected?.res) return false;
 
     if(this.keySelected && (e.code === 'Backspace' || e.key === 'Backspace')){
@@ -430,7 +435,7 @@ export class PlayComponent {
   }
 
   skipGame(){
-    this.router.navigate(['play', getRandomTextIndex(this.settings?.hintAmount)]);
+    this.router.navigate(['play', this._quoteService.getRandomTextIndex(this.settings?.hintAmount)]);
   }
 
   showConffetti() {

@@ -6,8 +6,8 @@ import { Observable } from 'rxjs';
 import { setSettings } from 'src/app/store/actions/settings.actions';
 import { SettingState } from 'src/app/store/reducers/settings.reducer';
 import { Router } from '@angular/router';
-import { getRandomTextIndex } from 'src/app/utils/utils';
 import { difficulties, DIFFICULTIES, difficultyHelpMessages } from 'src/app/utils/difficulty';
+import { QuotesService } from 'src/app/services/quotes.service';
 
 @Component({
   selector: 'app-new-game',
@@ -48,6 +48,7 @@ export class NewGameComponent {
   constructor(
     private _fb: FormBuilder,
     private store: Store<{ settings: SettingState }>,
+    private _quoteService: QuotesService,
     private router: Router
   ){
 
@@ -111,7 +112,7 @@ export class NewGameComponent {
     if(this.redirectTo){
       this.router.navigateByUrl(this.redirectTo);
     } else {
-      this.router.navigate(['play', getRandomTextIndex(this.settings.value?.hintAmount)]);
+      this.router.navigate(['play', this._quoteService.getRandomTextIndex(this.settings.value?.hintAmount)]);
     }
   }
 

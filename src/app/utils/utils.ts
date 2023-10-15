@@ -1,4 +1,13 @@
-import phrases from "./text";
+import esPhrases from "./es.text";
+import enPhrases from "./en.text";
+
+
+const phrases = {
+    'es': esPhrases,
+    'en': enPhrases,
+}
+
+export type LangKey = keyof typeof phrases;
 
 export const removeAccents = (text: string) => {
     const vowels: any = {'á': 'a', 'é':'e', 'í':'i', 'ó':'o', 'ú':'u'};
@@ -52,9 +61,9 @@ const getRandomEncrypt = (text: string) => {
   
 }
 
-const getRandomTextIndex = (hintAmount: number | undefined = undefined): number => {
+const getRandomTextIndex = (lang: LangKey, hintAmount: number | undefined = undefined): number => {
 
-    const array = phrases;
+    const array = phrases[lang];
 
     const random = Math.floor(Math.random() * array.length);
 
@@ -62,18 +71,18 @@ const getRandomTextIndex = (hintAmount: number | undefined = undefined): number 
         if(getRandomWord(array[random].quote, hintAmount)){
             return random;
         } else {
-            return getRandomTextIndex(hintAmount);
+            return getRandomTextIndex(lang, hintAmount);
         }
     }
 
     return random;
 }
 
-const getText = (index: number | null = null) => {
+const getText = (lang: LangKey, index: number | null = null) => {
     
-    const array = phrases;
+    const array = phrases[lang];
 
-    if(index === null) index = getRandomTextIndex();
+    if(index === null) index = getRandomTextIndex(lang);
   
     const quote = array[index];
 
@@ -81,8 +90,8 @@ const getText = (index: number | null = null) => {
   
 };
 
-const getPhrasesSize = () => {
-    return phrases.length;
+const getPhrasesSize = (lang: LangKey) => {
+    return phrases[lang].length;
 }
   
 const getRandomWord = (text: string, amountOfLetters = 3) => {
@@ -101,18 +110,7 @@ const getRandomWord = (text: string, amountOfLetters = 3) => {
 export const normalizeText = (text: string) => {
     text = text.split("").map(l => removeAccents(l)).join("");
     return text.split("\n").join(" ").trim()
-        .replaceAll('.', '')
-        .replaceAll(',', '')
-        .replaceAll(';', '')
-        .replaceAll(':', '')
-        .replaceAll('(', '')
-        .replaceAll(')', '')
-        .replaceAll("'", '')
-        .replaceAll('"', '')
-        .replaceAll('?', '')
-        .replaceAll('¿', '')
-        .replaceAll('!', '')
-        .replaceAll('¡', '')
+        .replace(/[^A-Za-zñ ]/g, '')
 }
 
 export {getRandomEncrypt, getText, getRandomWord, getRandomTextIndex, getPhrasesSize};
