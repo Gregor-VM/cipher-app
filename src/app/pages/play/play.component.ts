@@ -375,7 +375,7 @@ export class PlayComponent {
   replaceLetterListener(){
     window.addEventListener('keydown', (e) => {
 
-      this.handleTyping(e.key);
+      this.handleTyping(e);
 
     })
   }
@@ -385,9 +385,8 @@ export class PlayComponent {
     const input = e.target as HTMLInputElement;
 
     if(input){
-      const key = input?.value.toLowerCase();
 
-      const typeSucceed = this.handleTyping(key);
+      const typeSucceed = this.handleTyping(e as KeyboardEvent);
 
       if(typeSucceed){
         input?.blur();
@@ -398,19 +397,24 @@ export class PlayComponent {
 
   }
 
-  handleTyping(key: string): boolean{
+  handleTyping(e: KeyboardEvent): boolean{
 
-    if(key.toLowerCase() === this.keySelected?.res) return false;
+    if(e.key.toLowerCase() === this.keySelected?.res) return false;
 
-    const usedWords = Array.from(new Set(this.code.map(letter => letter.res.toLowerCase())));
-
-    if(usedWords.includes(key.toLowerCase())){
-      this.markWarning(key.toLowerCase())
+    if(this.keySelected && e.code === 'Backspace'){
+      this.replaceLetter('');
       return false;
     }
 
-    if(this.keySelected && allowedKeys.includes(key.toLowerCase())){
-      this.replaceLetter(key.toLowerCase());
+    const usedWords = Array.from(new Set(this.code.map(letter => letter.res.toLowerCase())));
+
+    if(usedWords.includes(e.key.toLowerCase())){
+      this.markWarning(e.key.toLowerCase())
+      return false;
+    }
+
+    if(this.keySelected && allowedKeys.includes(e.key.toLowerCase())){
+      this.replaceLetter(e.key.toLowerCase());
 
       if(this.isComplete){
         this.onComplete();
