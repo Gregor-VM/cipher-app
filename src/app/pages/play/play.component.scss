@@ -1,5 +1,6 @@
 .code-button{
-    min-width: 2.5rem;
+    width: 2.85rem !important;
+    min-width: 2.85rem;
 }
 
 #confetti{
@@ -20,4 +21,12 @@
     height: 1px;
     opacity: 0;
     z-index: -1;
+}
+
+.code-container{
+    width: 100%;
+    display: grid !important;
+    justify-items: center;
+    gap: .5rem;
+    grid-template-columns: repeat(auto-fit, minmax(2.8rem, max-content));
 }

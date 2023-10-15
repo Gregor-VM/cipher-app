@@ -26,25 +26,27 @@
         {{title}}
     </ng-template>
 
-    <div class="overflow-hidden">
-        <ng-container class="d-flex" *ngFor="let char of code; let i = index">
-            <button (click)="select(char)" 
-                    *ngIf="char.char !== ' ';else empty" 
-                    type="button" 
-                    [ngClass]="{'btn-warning': char.warning, 'btn-success': char.selected && !char.warning, 'btn-light': !char.selected && !char.warning}" 
-                    class="code-button btn mb-2 mx-1"
-                    [ngbPopover]="popContent"
-                    [popoverTitle]="popTitle"
-                    [autoClose]="false"
-                    triggers="manual"
-                    #pop="ngbPopover"
-                    >
-                    {{char.res || char.char}}</button>
-            <ng-template #empty>
-                <!--<span class="mx-4"></span>-->
-                <button type="button" class="code-button opacity-25 btn mb-2 mx-1 btn-light"><span class="opacity-0">.</span></button>
-            </ng-template>
-        </ng-container>
+    <div class="d-flex justify-content-center">
+        <div class="overflow-hidden code-container">
+            <ng-container class="d-flex" *ngFor="let char of code; let i = index">
+                <button (click)="select(char)" 
+                        *ngIf="char.char !== ' ';else empty" 
+                        type="button" 
+                        [ngClass]="{'btn-warning': char.warning, 'btn-success': char.selected && !char.warning, 'btn-light': !char.selected && !char.warning}" 
+                        class="code-button btn mb-2 mx-1"
+                        [ngbPopover]="popContent"
+                        [popoverTitle]="popTitle"
+                        [autoClose]="false"
+                        triggers="manual"
+                        #pop="ngbPopover"
+                        >
+                        {{char.res || char.char}}</button>
+                <ng-template #empty>
+                    <!--<span class="mx-4"></span>-->
+                    <button type="button" class="code-button opacity-25 btn mb-2 mx-1 btn-light"><span class="opacity-0">.</span></button>
+                </ng-template>
+            </ng-container>
+        </div>
     </div>
 
     <div *ngIf="settings?.showFrequencyOfCharacters" class="mt-3">
