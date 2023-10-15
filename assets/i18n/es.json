@@ -43,7 +43,11 @@
         "TUTORIAL_TITLE_FIRST": "Selecciona el simbolo",
         "TUTORIAL_DESCRIPTION_FIRST": "Debes hacer click en el símbolo que falta por completar para colocar la letra que le corresponde.",
         "TUTORIAL_TITLE_SECOND": "Remplaza con la letra",
-        "TUTORIAL_DESCRIPTION_SECOND": "Ahora selecciona la letra que completa el mensaje de forma correcta."
+        "TUTORIAL_DESCRIPTION_SECOND": "Ahora selecciona la letra que completa el mensaje de forma correcta.",
+        "LETTER_FREQUENCY": ["E","A","O","S","R","N","I","D","L","C","T","U","M","P","B","G","V","Y","Q","H","F","Z","J","Ñ","X","K","W"],
+        "LETTER_TWO_FREQUENCY": ["de", "la", "el", "en", "se", "un", "no", "su", "es", "al", "lo", "le", "ha"],
+        "LETTER_THREE_FREQUENCY": ["que", "los", "del", "las", "por", "con", "una", "mas", "sus"],
+        "ALLOWED_KEYS": "abcdefghijklmnñopqrstuvwxyz"
     },
     "CREATE":{
         "MESSAGE_LABEL": "Introduce tú mensaje secreto",

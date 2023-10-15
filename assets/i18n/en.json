@@ -39,11 +39,15 @@
         "THREE_LETTERS": "Three letters",
         "RESET": "Reset",
         "SKIP": "Skip",
-        "FREQUENT_TITLE": "Letter and words more frequent in spanish:",
+        "FREQUENT_TITLE": "Letter and words more frequent in english:",
         "TUTORIAL_TITLE_FIRST": "Select a symbol",
         "TUTORIAL_DESCRIPTION_FIRST": "Click the symbol that needs to be replaced by a letter",
         "TUTORIAL_TITLE_SECOND": "Replace the letter",
-        "TUTORIAL_DESCRIPTION_SECOND": "Now, select the letter that correctly complete the message"
+        "TUTORIAL_DESCRIPTION_SECOND": "Now, select the letter that correctly complete the message",
+        "LETTER_FREQUENCY": ["E", "T", "A", "O", "I", "N", "S", "H", "R", "D", "L", "C", "U", "M", "W", "F", "G", "Y", "P", "B", "V", "K", "J", "X", "Q", "Z"],
+        "LETTER_TWO_FREQUENCY": ["be", "of", "in", "to", "it", "he", "on", "do", "at", "we", "by", "or", "as", "go", "if", "my", "as", "up", "so"],
+        "LETTER_THREE_FREQUENCY": ["and", "too", "for", "you", "say", "but", "his", "not", "she", "can", "get", "her", "all", "one"],
+        "ALLOWED_KEYS": "abcdefghijklmnopqrstuvwxyz"
     },
     "CREATE":{
         "MESSAGE_LABEL": "Introduce your secret message",
