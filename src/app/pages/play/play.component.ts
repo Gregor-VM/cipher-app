@@ -375,26 +375,7 @@ export class PlayComponent {
   replaceLetterListener(){
     window.addEventListener('keydown', (e) => {
 
-      if(e.key.toLowerCase() === this.keySelected?.res) return;
-
-      if(this.keySelected && e.code === 'Backspace'){
-        this.replaceLetter('');
-      }
-
-      const usedWords = Array.from(new Set(this.code.map(letter => letter.res.toLowerCase())));
-
-      if(usedWords.includes(e.key.toLowerCase())){
-        this.markWarning(e.key.toLowerCase())
-        return;
-      }
-
-      if(this.keySelected && allowedKeys.includes(e.key.toLowerCase())){
-        this.replaceLetter(e.key.toLowerCase());
-
-        if(this.isComplete){
-          this.onComplete();
-        }
-      }
+      this.handleTyping(e.key);
 
     })
   }
@@ -405,16 +386,40 @@ export class PlayComponent {
 
     if(input){
       const key = input?.value.toLowerCase();
-      if(allowedKeys.includes(key)){
-        this.replaceLetter(key);
+
+      const typeSucceed = this.handleTyping(key);
+
+      if(typeSucceed){
         input?.blur();
         this.unSelectAll();
-        if(this.isComplete){
-          this.onComplete();
-        }
       }
       input.value = '';
     }
+
+  }
+
+  handleTyping(key: string): boolean{
+
+    if(key.toLowerCase() === this.keySelected?.res) return false;
+
+    const usedWords = Array.from(new Set(this.code.map(letter => letter.res.toLowerCase())));
+
+    if(usedWords.includes(key.toLowerCase())){
+      this.markWarning(key.toLowerCase())
+      return false;
+    }
+
+    if(this.keySelected && allowedKeys.includes(key.toLowerCase())){
+      this.replaceLetter(key.toLowerCase());
+
+      if(this.isComplete){
+        this.onComplete();
+      }
+
+    }
+
+    return true;
+
 
   }
 
