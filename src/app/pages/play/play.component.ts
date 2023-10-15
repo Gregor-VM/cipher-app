@@ -386,7 +386,9 @@ export class PlayComponent {
 
     if(input){
 
-      const typeSucceed = this.handleTyping(e as KeyboardEvent);
+      const key = input.value.slice(-1);
+
+      const typeSucceed = this.handleTyping({...(e as KeyboardEvent), key});
 
       if(typeSucceed){
         input?.blur();
@@ -401,7 +403,7 @@ export class PlayComponent {
 
     if(e.key.toLowerCase() === this.keySelected?.res) return false;
 
-    if(this.keySelected && e.code === 'Backspace'){
+    if(this.keySelected && (e.code === 'Backspace' || e.key === 'Backspace')){
       this.replaceLetter('');
       return false;
     }

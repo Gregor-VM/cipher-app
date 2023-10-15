@@ -4,14 +4,14 @@
         <input id="keyboard" type="text" class="keyboard d-md-none" (keyup)="handleMobileTyping($event)" />
     </div>
     
-    <div class="row mb-xl-0 mb-4">
+    <div class="row mb-xl-0 mb-md-4 mb-2">
         <div class="col-12 col-xl-11">
             <div *ngIf="settings?.showHint" class="alert alert-primary text-center">
                 <strong>{{ 'PLAY.HINT' | translate }}: </strong> {{hint}}
             </div>
         </div>
         <div class="col-12 col-xl-1 mb-3">
-            <div class="d-flex justify-content-center align-items-center mt-2">
+            <div class="d-flex justify-content-center align-items-center mt-md-2">
                 <button (click)="resetLetters()" [openDelay]="500" [ngbTooltip]="'PLAY.RESET' | translate" type="button" class="btn btn-outline-warning btn-lg"><fa-icon [icon]="faRefresh"></fa-icon></button>
                 <button (click)="skipGame()" [openDelay]="500" [ngbTooltip]="'PLAY.SKIP' | translate" type="button" class="btn btn-outline-primary btn-lg ms-1"><fa-icon [icon]="faForward"></fa-icon></button>
             </div>
@@ -42,7 +42,6 @@
                         >
                         {{char.res || char.char}}</button>
                 <ng-template #empty>
-                    <!--<span class="mx-4"></span>-->
                     <button type="button" class="code-button opacity-25 btn mb-2 mx-1 btn-light"><span class="opacity-0">.</span></button>
                 </ng-template>
             </ng-container>
@@ -52,7 +51,7 @@
     <div *ngIf="settings?.showFrequencyOfCharacters" class="mt-3">
 
         <ul *ngFor="let chars of uniqueCharsSplitted" class="d-flex justify-content-center list-group list-group-horizontal my-2">
-            <li *ngFor="let char of chars" class="list-group-item d-flex justify-content-between align-items-center">
+            <li *ngFor="let char of chars" class="item-frequent-char list-group-item d-flex justify-content-between align-items-center">
                 <strong>{{char}}</strong> <span class="badge bg-primary rounded-pill ms-2">{{charCount[char]}}</span>
             </li>
         </ul>
