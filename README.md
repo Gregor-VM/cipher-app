@@ -1,27 +1,37 @@
 # CipherApp
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.0.0.
+![CipherApp Logo](/src/favicon.ico)
 
-## Development server
+> Disclaimer: The project is under the [MIT License](/LICENSE).
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+App made in angular based on cryptoanalysis of frequency to solve random puzzles with famous quotes.
 
-## Code scaffolding
+### Website
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+The project is live [here!](https://gregor-vm.github.io/cipher-app)
 
-## Build
+## How does this works under the hood? 🔬
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+All the quotes are store in two files (for two languages) the english file is _/src/utils/en.text.ts_ the spanish file is _/src/utils/es.text.ts_ both of them contain an array of object with quotes and their corresonding authors. The image of each author it's obtained via the wikipedia API.
 
-## Running unit tests
+### How can I contribute to this repo? 🤓
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+If you are interested in contributing to this project use [Angular](https://angular.io/start)
 
-## Running end-to-end tests
+The project also use [Sass](https://sass-lang.com/) and firebase (to create/share custom encrypted message) [Firebase](https://firebase.google.com)
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+To run it, you need to have installed [Node.js & npm](https://nodejs.org/en/download/), and [pnpm](https://pnpm.io/installation), them you can use the following commands.
 
-## Further help
+_All commands are run from the root of the project, from a terminal:_
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+- Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+
+- Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+
+**Any contribution is truly appreciated!**
+
+#### LICENSE 📜
+
+This project is under the [MIT License](/LICENSE).
+
+Don't forget to leave a star 🌟
